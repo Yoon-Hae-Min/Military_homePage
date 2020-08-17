@@ -25,7 +25,7 @@ SECRET_KEY = '8%cy^cbzhbta00*&g8_i&vhwe7hg+e(yf3ra6tt&$j8n=jo0ow'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".goorm.io"]
+ALLOWED_HOSTS = [".goorm.io",'yoonhaemin.pythonanywhere.com']
 
 
 # Application definition
