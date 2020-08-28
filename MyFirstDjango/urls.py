@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Hlist.views import main
+from Hlist.views import main, postmemo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',main),
+    path('post/',postmemo)
 ]
 

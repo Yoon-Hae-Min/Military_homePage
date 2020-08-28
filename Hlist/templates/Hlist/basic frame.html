@@ -7,54 +7,15 @@
     <meta name="description" content="A Bootstrap 4 admin dashboard theme that will get you started. The sidebar toggles off-canvas on smaller screens. This example also include large stat blocks, modal and cards. The top navbar is controlled by a separate hamburger toggle button." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Codeply">
-    <!--토글버튼 CDN-->
-    <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
-    <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
-    <link href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">  
-    <script src="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
-    <!--토글버튼 CDN END-->
-      
-     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
-      
-      
-      
+
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/styles.css" />
-      
-      
-      <!--자바 스크립트 함수-->
-      <script language = "javascript">
-          function checkboxchecked(num,ck){
-              var chk=document.getElementById(ck);
-              var txt=document.getElementById(num);
-              var check=chk.checked;
-              if(check){
-                  txt.style.textDecoration="line-through";
-              }
-              else{
-                  txt.style.textDecoration="none";
-              }
-              
-              
-          }
-      </script>
   </head>
-    <!--
-    이때까지한것: 사용자 로그인 아이콘등록, 마일리지박스, basic frame에서 위치조정 , 휴가관련 입력, 수정버튼 링크타기
-    오늘한것: 휴가관련 입력, 수정버튼 링크타기, 메모 등록 띄우기
-
-    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성) 해야할일 틀찾고 입력
-
-    메모장관련: 삭제하기 & 수정하기 & 입력페이지 HTML짜기
-
-
-
--->
+    
     
     
     
@@ -67,7 +28,7 @@
         <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#" title="Free Bootstrap 4 Admin Template">HaeMin</a><!-- 메인 메뉴-->
+        <a class="navbar-brand" href="#" title="Free Bootstrap 4 Admin Template">Admin Template</a><!-- 메인 메뉴-->
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -116,216 +77,70 @@
         <!--/col-->
         <!--left nav var end-->
         
-        <!--memo start-->
+        
         <div class="col main pt-5 mt-3">
-            <div>
-                <h1 class="display-6 d-none d-sm-block">
-                    Military Homepage
-                </h1>
-                <p class="lead d-none d-sm-block">2020년 10월31일 전역</p>
-            </div>
-            <div style="display:inline">
-                <button type="button" class="btn btn-outline-primary" onclick="location.href='https://military-rddjd.run.goorm.io/post/'">추가</button>
-            </div>
+            <h1 class="display-4 d-none d-sm-block">
+            Bootstrap 4 Dashboard
+            </h1>
+            <p class="lead d-none d-sm-block">Plus off-canvas sidebar, based on Bootstrap v4</p>
+
             <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <strong>Holy guacamole!</strong> It's free.. this is an example theme.<!--이건뭐지??-->
+                <strong>Holy guacamole!</strong> It's free.. this is an example theme.
             </div>
-
             <div class="row mb-3">
-            {% for x in memo%}
-                {% if x.memoid == 1 %}
                 <div class="col-xl-3 col-sm-6 py-2">
                     <div class="card bg-success text-white h-100">
                         <div class="card-body bg-success">
-                            <h6 class="text-uppercase"> {{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
-                            <div class="float-md-right">
-                                <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm">삭제</button>
+                            <div class="rotate">
+                                <i class="fa fa-user fa-4x"></i>
                             </div>
-                            <!--안됨 어케 해결할지...해결방안-->
+                            <h6 class="text-uppercase">Users</h6>
+                            <h1 class="display-4">134</h1>
                         </div>
                     </div>
                 </div>
-                {% elif x.memoid == 2 %}
                 <div class="col-xl-3 col-sm-6 py-2">
                     <div class="card text-white bg-danger h-100">
                         <div class="card-body bg-danger">
-                            <h6 class="text-uppercase">{{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
-                            <div class="float-md-right">
-                                <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm">삭제</button>
+                            <div class="rotate">
+                                <i class="fa fa-list fa-4x"></i>
                             </div>
+                            <h6 class="text-uppercase">Posts</h6>
+                            <h1 class="display-4">87</h1>
                         </div>
                     </div>
                 </div>
-                {% elif x.memoid == 3 %}
                 <div class="col-xl-3 col-sm-6 py-2">
                     <div class="card text-white bg-info h-100">
                         <div class="card-body bg-info">
-                            <h6 class="text-uppercase">{{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
+                            <div class="rotate">
+                                <i class="fa fa-twitter fa-4x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Tweets</h6>
+                            <h1 class="display-4">125</h1>
                         </div>
                     </div>
                 </div>
-                {% elif x.memoid == 4 %}
                 <div class="col-xl-3 col-sm-6 py-2">
                     <div class="card text-white bg-warning h-100">
                         <div class="card-body">
-                            <h6 class="text-uppercase">{{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
+                            <div class="rotate">
+                                <i class="fa fa-share fa-4x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Shares</h6>
+                            <h1 class="display-4">36</h1>
                         </div>
-                        
                     </div>
                 </div>
             </div>
-            {% endif %}
-            {% endfor %}
-            <hr>
             <!--/row-->
-<!--memo end-->
-            <!--마일리지 박스 시작-->
-            <div class="row my-4">
-                <div class="col-lg-3 col-md-4">
-                    <div class="card card-inverse bg-inverse mt-3">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <div class="row justify-content-between">
-                                    <div class="col-6">
-                                        <h3 class="title">마일리지</h3>
-                                    </div>
-                                    <div class="float-md-right">
-                                        <button type="button" class="btn btn-outline-primary" onclick="location.href='https://military-rddjd.run.goorm.io/admin/Hlist/mileage/add/'">수정</button>
-                                             <!--python anywhere가서 다시 조정할것--> 
-                                    </div>
-                                </div>                                
-                            </div>
-                                   <!--row end-->
-                        </div>
-                                <ul>
-                                    {% for i in mileage %}
-                                    <li>
-                                        <h5>
-                                            {{i.month}}&nbsp:&nbsp&nbsp&nbsp&nbsp{{i.times}} 시간
-                                        </h5>
-                                    </li>
-                                    {% endfor %}<!--예시 마일리지 넣기-->
-                                </ul>              
-                        </div>
-                    </div>
- <!--마일리지 부분 끝-->
-                <!--vacation table start-->
-                <hr>
-                <div class="col-lg-9 col-md-8">
-                    <h4>
-                        남은 휴가
-                    </h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <th>#</th>
-                                    <th>휴가이름</th>
-                                    <th>남은 휴가일수</th>
-                                    <th>휴가일수</th>
-                                    <th>건의 올라간 월</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for i in vacation %}
-                                    <tr>
-                                        <td>{{i.id}}</td>
-                                        <td>{{i.vacation_name}}</td>
-                                        <td>{{i.vacation_left_date}}</td>
-                                        <td>{{i.vacation_date}}</td>
-                                        <td>{{i.doucument_payment}}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <hr>
-                <div class="col-lg-9 col-md-8 ml-auto">
-                    <h4>
-                        사용한 휴가
-                    </h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <th>#</th>
-                                    <th>휴가이름</th>
-                                    <th>사용한 휴가일수</th>
-                                    <th>사용일자</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for i in used_vacation %}
-                                    <tr>
-                                        <td>{{i.id}}</td>
-                                        <td>{{i.vacation_name}}</td>
-                                        <td>{{i.vacation_date}}</td>
-                                        <td>{{i.used_date}}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!--row-->
-<!--vacation table end-->
-            
+
             <hr>
-              <div class="row mb-3">
-                <div class="col">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h4 class="text-center">
-                                Today to do
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                 <div class="col">
-                                    <div class="text-center">
-                                        <h4 >야간</h4>
-                                     </div>
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td class="text-center" id=1>123</td>
-                                            <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked(1,'first')" id="first"></td>
-                                        </tr>
-                                     </table>
-                                </div>
-                                <!--table에 어떻게 넣을건지 border없이-->
-                                <div class="col">
-                                    <div class="text-center">
-                                        <h4>조간</h4>
-                                    </div>
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td class="text-center" style="text-decoration:line-through">111</td>
-                                            <td class="text-center" ><input type="checkbox" style='zoom:2.0;'></td>
-                                        </tr>
-                                    </table>
-                                 </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                 </div>
-              </div>
-            <hr>
-                   
-            <div>
-                <div class="row placeholders mb-3">
+            <div class="row placeholders mb-3">
                 <div class="col-6 col-sm-3 placeholder text-center">
                     <img src="//placehold.it/200/dddddd/fff?text=1" class="mx-auto img-fluid rounded-circle" alt="Generic placeholder thumbnail">
                     <h4>Responsive</h4>
@@ -355,16 +170,111 @@
                 new features such as flexbox, 5 grid sizes (now including xl), cards, `em` sizing, CSS normalization (reboot) and larger font
                 sizes.
             </p>
+            <div class="row my-4">
+                <div class="col-lg-3 col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="//placehold.it/740x180/bbb/fff?text=..." alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Layouts</h4>
+                            <p class="card-text">Flexbox provides simpler, more flexible layout options like vertical centering.</p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                    <div class="card card-inverse bg-inverse mt-3">
+                        <div class="card-body">
+                            <h3 class="card-title">Flexbox</h3>
+                            <p class="card-text">Flexbox is now the default, and Bootstrap 4 supports SASS out of the box.</p>
+                            <a href="#" class="btn btn-outline-secondary">Outline</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Label</th>
+                                    <th>Header</th>
+                                    <th>Column</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,001</td>
+                                    <td>responsive</td>
+                                    <td>bootstrap</td>
+                                    <td>cards</td>
+                                    <td>grid</td>
+                                </tr>
+                                <tr>
+                                    <td>1,002</td>
+                                    <td>rwd</td>
+                                    <td>web designers</td>
+                                    <td>theme</td>
+                                    <td>responsive</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>free</td>
+                                    <td>open-source</td>
+                                    <td>download</td>
+                                    <td>template</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>frontend</td>
+                                    <td>developer</td>
+                                    <td>coding</td>
+                                    <td>card panel</td>
+                                </tr>
+                                <tr>
+                                    <td>1,004</td>
+                                    <td>migration</td>
+                                    <td>bootstrap 4</td>
+                                    <td>mobile-first</td>
+                                    <td>design</td>
+                                </tr>
+                                <tr>
+                                    <td>1,005</td>
+                                    <td>navbar</td>
+                                    <td>sticky</td>
+                                    <td>jumbtron</td>
+                                    <td>header</td>
+                                </tr>
+                                <tr>
+                                    <td>1,006</td>
+                                    <td>collapse</td>
+                                    <td>affix</td>
+                                    <td>submenu</td>
+                                    <td>flexbox</td>
+                                </tr>
+                                <tr>
+                                    <td>1,007</td>
+                                    <td>layout</td>
+                                    <td>examples</td>
+                                    <td>themes</td>
+                                    <td>grid</td>
+                                </tr>
+                                <tr>
+                                    <td>1,008</td>
+                                    <td>migration</td>
+                                    <td>bootstrap 4</td>
+                                    <td>flexbox</td>
+                                    <td>design</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            
-            
             <!--/row-->
 
             <a id="more"></a>
             <hr>
-            
+            <h2 class="sub-header mt-5">Use card decks for equal height rows of cards</h2>
             <div class="mb-3">
-                <h2 class="sub-header mt-5">Use card decks for equal height rows of cards</h2>
                 <div class="card-deck">
                     <div class="card card-inverse card-success text-center">
                         <div class="card-body">

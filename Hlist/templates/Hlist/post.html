@@ -1,0 +1,16 @@
+<div class="form_box">
+    <form method="POST">
+        {% csrf_token %}
+        <h3>게시물 올리기</h3>
+        <select name="memoid">
+            <option name="select">==선택==</option>
+            <option name="first">1</option>
+            <option name="second">2</option>
+            <option name="third">3</option>
+            <option name="fourth">4</option>
+        </select>
+        <input class="input_field" type="text" placeholder="제목을 입력해주세요." name="memotitle"><br>
+        <textarea class="textarea_field" placeholder="내용을 입력해주세요." name="memotext"></textarea><br>
+        <button class="write_button">게시</button>
+    </form>
+</div>
