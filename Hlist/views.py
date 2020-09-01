@@ -1,12 +1,16 @@
 from django.shortcuts import render,redirect
-from .models import mileage,vacation,used_vacation,memo
+from .models import mileage,vacation,used_vacation,memo,evening,dawn
 from django.core.exceptions import ObjectDoesNotExist
+
 def main(request):
     mil=mileage.objects.all()
     vac=vacation.objects.all()
     uvac=used_vacation.objects.all()
     memos=memo.objects.all()
-    return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos})
+    ev=evening.objects.all()
+    da=dawn.objects.all()
+    
+    return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da})
 
 
 def postmemo(request):
@@ -25,3 +29,4 @@ def postmemo(request):
 
         # 새글 등록 끝
     return render(request, 'Hlist/post.html')
+

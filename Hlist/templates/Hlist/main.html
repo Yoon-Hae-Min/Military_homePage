@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
   <head>
     <meta charset="utf-8">
@@ -35,6 +33,7 @@
               var check=chk.checked;
               if(check){
                   txt.style.textDecoration="line-through";
+                  
               }
               else{
                   txt.style.textDecoration="none";
@@ -46,11 +45,16 @@
   </head>
     <!--
     이때까지한것: 사용자 로그인 아이콘등록, 마일리지박스, basic frame에서 위치조정 , 휴가관련 입력, 수정버튼 링크타기
-    오늘한것: 휴가관련 입력, 수정버튼 링크타기, 메모 등록 띄우기
+    오늘한것: 휴가관련 입력, 수정버튼 링크타기, 메모 등록 띄우기, 해야할일 틀찾고 입력
 
-    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성) 해야할일 틀찾고 입력
+
+    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성), 할일 체크데이터 테이터베이스로 넘기기(장고 좋아요기능 동적 구현참고)
 
     메모장관련: 삭제하기 & 수정하기 & 입력페이지 HTML짜기
+
+
+
+    버그: 메모가 4개가 아니면 밑에내용이 위로 침범 레이아웃조정 필요
 
 
 
@@ -298,10 +302,23 @@
                                         <h4 >야간</h4>
                                      </div>
                                     <table class="table table-bordered">
-                                        <tr>
-                                            <td class="text-center" id=1>123</td>
-                                            <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked(1,'first')" id="first"></td>
-                                        </tr>
+                                        <form method="POST">
+                                            {% for x in evening %}
+                                            <tr>
+                                                <td class="text-center" id={{x.id|add:"100"}}>{{x.evening_name}}</td>
+                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{x.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
+                                                {% if x.find_check == 1 %}
+                                                checked="checked"
+                                                {% endif %}></td>
+                                                {% if x.find_check == 1 %}
+                                                <script>
+                                                document.onload=checkboxchecked({{x.id|add:'100'}},{{forloop.counter}})
+                                                </script>
+                                                {% endif %}
+                                                <!--checkbox를 눌렀을때 라인치기 및 체크하기-->
+                                            </tr>
+                                            {% endfor %}
+                                        </form>
                                      </table>
                                 </div>
                                 <!--table에 어떻게 넣을건지 border없이-->
@@ -310,10 +327,12 @@
                                         <h4>조간</h4>
                                     </div>
                                     <table class="table table-bordered">
+                                        {% for x in dawn %}
                                         <tr>
-                                            <td class="text-center" style="text-decoration:line-through">111</td>
+                                            <td class="text-center" style="text-decoration:line-through">{{x.dawn_name}}</td>
                                             <td class="text-center" ><input type="checkbox" style='zoom:2.0;'></td>
                                         </tr>
+                                        {% endfor %}
                                     </table>
                                  </div>
                             </div>
@@ -675,6 +694,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
-    <script src="js/scripts.js"></script>
   </body>
 </html>

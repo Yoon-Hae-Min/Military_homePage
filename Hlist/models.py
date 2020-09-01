@@ -21,3 +21,11 @@ class memo(models.Model):
     memoid=models.IntegerField(default=1)
     memotitle=models.CharField(max_length=100)
     memotext=models.TextField(max_length=1000)
+
+class evening(models.Model):
+    evening_name=models.CharField(max_length=100)
+    find_check=models.IntegerField(default=0)
+    
+class dawn(models.Model):
+    dawn_name=models.CharField(max_length=100)
+    find_check=models.IntegerField(default=0)
