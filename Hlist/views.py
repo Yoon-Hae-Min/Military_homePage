@@ -30,3 +30,8 @@ def postmemo(request):
         # 새글 등록 끝
     return render(request, 'Hlist/post.html')
 
+def postdelete(request,pk):
+    objects=memo.objects.get(memoid=pk)
+    objects.delete()
+    return redirect('/')
+        

@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Hlist.views import main, postmemo
+from Hlist.views import main, postmemo, postdelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',main),
-    path('post/',postmemo)
+    path('post/',postmemo),
+    path('delete/<pk>',postdelete),
 ]
 

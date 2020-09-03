@@ -42,6 +42,16 @@
               
           }
       </script>
+    <script language="javascript">
+          var Id=0;
+          function saveId(id){
+              Id=id;
+          }
+          function postdelete(){
+              location.href="/delete/"+Id
+          }
+      </script>
+      
   </head>
     <!--
     이때까지한것: 사용자 로그인 아이콘등록, 마일리지박스, basic frame에서 위치조정 , 휴가관련 입력, 수정버튼 링크타기
@@ -50,7 +60,7 @@
 
     예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성), 할일 체크데이터 테이터베이스로 넘기기(장고 좋아요기능 동적 구현참고)
 
-    메모장관련: 삭제하기 & 수정하기 & 입력페이지 HTML짜기
+    메모장관련:  수정하기 & 입력페이지 HTML짜기
 
 
 
@@ -128,6 +138,7 @@
                 </h1>
                 <p class="lead d-none d-sm-block">2020년 10월31일 전역</p>
             </div>
+            
             <div style="display:inline">
                 <button type="button" class="btn btn-outline-primary" onclick="location.href='https://military-rddjd.run.goorm.io/post/'">추가</button>
             </div>
@@ -138,7 +149,9 @@
                 </button>
                 <strong>Holy guacamole!</strong> It's free.. this is an example theme.<!--이건뭐지??-->
             </div>
+                                    
 
+            
             <div class="row mb-3">
             {% for x in memo%}
                 {% if x.memoid == 1 %}
@@ -148,8 +161,8 @@
                             <h6 class="text-uppercase"> {{x.memotitle}}</h6>
                             <h1 class="display-8">{{x.memotext}}</h1>
                             <div class="float-md-right">
-                                <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm">삭제</button>
+                                    <button class="btn btn-dark disabled btn-sm">수정</button>
+                                    <button class="btn btn-dark disabled btn-sm" id={{x.memoid}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid}})">삭제</button>
                             </div>
                             <!--안됨 어케 해결할지...해결방안-->
                         </div>
@@ -163,7 +176,7 @@
                             <h1 class="display-8">{{x.memotext}}</h1>
                             <div class="float-md-right">
                                 <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm">삭제</button>
+                                <button class="btn btn-dark disabled btn-sm" id={{x.memoid}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid}})">삭제</button>
                             </div>
                         </div>
                     </div>
@@ -174,6 +187,10 @@
                         <div class="card-body bg-info">
                             <h6 class="text-uppercase">{{x.memotitle}}</h6>
                             <h1 class="display-8">{{x.memotext}}</h1>
+                            <div class="float-md-right">
+                                <button class="btn btn-dark disabled btn-sm">수정</button>
+                                <button class="btn btn-dark disabled btn-sm" id={{x.memoid}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid}})">삭제</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -183,6 +200,10 @@
                         <div class="card-body">
                             <h6 class="text-uppercase">{{x.memotitle}}</h6>
                             <h1 class="display-8">{{x.memotext}}</h1>
+                            <div class="float-md-right">
+                                <button class="btn btn-dark disabled btn-sm">수정</button>
+                                <button class="btn btn-dark disabled btn-sm" id={{x.memoid}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid}})">삭제</button>
+                            </div>
                         </div>
                         
                     </div>
@@ -202,10 +223,6 @@
                                 <div class="row justify-content-between">
                                     <div class="col-6">
                                         <h3 class="title">마일리지</h3>
-                                    </div>
-                                    <div class="float-md-right">
-                                        <button type="button" class="btn btn-outline-primary" onclick="location.href='https://military-rddjd.run.goorm.io/admin/Hlist/mileage/add/'">수정</button>
-                                             <!--python anywhere가서 다시 조정할것--> 
                                     </div>
                                 </div>                                
                             </div>
@@ -305,7 +322,7 @@
                                         <form method="POST">
                                             {% for x in evening %}
                                             <tr>
-                                                <td class="text-center" id={{x.id|add:"100"}}>{{x.evening_name}}</td>
+                                                <td class="text-center" id={{x.id|add:'100'}}>{{x.evening_name}}</td>
                                                 <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{x.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
                                                 {% if x.find_check == 1 %}
                                                 checked="checked"
@@ -688,8 +705,36 @@
         </div>
     </div>
 </div>
+<!-- The delete Modal -->
+<div class="modal" id="delete_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">삭제하기</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+            정말 메모를 삭제하시겠습니까?
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick=postdelete()>확인</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
     <!--scripts loaded here-->
-    
+    <!--삭제 script-->
+
+      
+      
+      
+      
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
