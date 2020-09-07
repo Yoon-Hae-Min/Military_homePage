@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
     <meta charset="utf-8">
     <title>HomePage</title>
     <meta name="description" content="A Bootstrap 4 admin dashboard theme that will get you started. The sidebar toggles off-canvas on smaller screens. This example also include large stat blocks, modal and cards. The top navbar is controlled by a separate hamburger toggle button." />
@@ -28,18 +29,12 @@
       <!--자바 스크립트 함수-->
       <script language = "javascript">
           function checkboxchecked(num,ck){
-              var chk=document.getElementById(ck);
-              var txt=document.getElementById(num);
-              var check=chk.checked;
-              if(check){
-                  txt.style.textDecoration="line-through";
-                  
+              if(document.getElementById(ck).checked){
+                  document.getElementById(num).style.textDecoration="line-through";
               }
               else{
-                  txt.style.textDecoration="none";
+                  document.getElementById(num).style.textDecoration="none";
               }
-              
-              
           }
       </script>
     <script language="javascript">
@@ -57,13 +52,12 @@
     이때까지한것: 사용자 로그인 아이콘등록, 마일리지박스, basic frame에서 위치조정 , 휴가관련 입력, 수정버튼 링크타기, 휴가관련 입력, 수정버튼 링크타기, 메모 등록 띄우기, 해야할일 틀찾고 입력, 메모 삭제기능 추가
 
 
+    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성), 체크된것 getlist로 보내서 DB에 저장(안됨)
 
-    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성), 
-
-    메모장관련:  수정하기 & 입력페이지 HTML짜기
+    메모장관련:  수정하기(모달로? 입력도?) & 입력페이지 HTML짜기
 
 
-    버그: 밑줄긋기 오류(1,2,3,4번쨰 오류는 안뜨는데 밑줄이 안그어짐)
+    버그: 밑줄긋기 오류(1,2,3,4번쨰 오류는 안뜨는데 밑줄이 안그어짐)????왜되지 또 뭐가문제지?? 
     
     쓸만한것: 부트스트랩 모달 기능
 
@@ -139,7 +133,7 @@
             </div>
             
             <div style="display:inline">
-                <button type="button" class="btn btn-outline-primary" onclick="location.href='https://military-rddjd.run.goorm.io/post/'">추가</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='post/'">추가</button>
             </div>
             <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -322,21 +316,24 @@
                                      </div>
                                     <table class="table table-bordered">
                                         <form method="POST">
+                                            {% csrf_token %}
                                             {% for x in evening %}
                                             <tr>
-                                                <td class="text-center" id={{x.id|add:'100'}}>{{x.evening_name}}</td>
+                                                <td class="text-center" id={{x.id|add:'100'}}
+                                                {% if x.find_check %}
+                                                    style="text-decoration:line-through"
+                                                {% endif %}
+                                                    >{{x.evening_name}}</td>
                                                 <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{x.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
-                                                {% if x.find_check == 1 %}
+                                                name="tag[]" value={{x.id}}
+                                                {% if x.find_check %}
                                                 checked="checked"
                                                 {% endif %}></td>
-                                                {% if x.find_check == 1 %}
-                                                <script>
-                                                document.onload=checkboxchecked({{x.id|add:'100'}},{{forloop.counter}})
-                                                </script>
-                                                {% endif %}
-                                                <!--checkbox를 눌렀을때 라인치기 및 체크하기-->
                                             </tr>
                                             {% endfor %}
+                                            <tr>
+                                                <td colspan=2><submit class="btn btn-primary" onclick="location.href=/eveningCheckBox/">저장</submit></td>
+                                            </tr>
                                         </form>
                                      </table>
                                 </div>

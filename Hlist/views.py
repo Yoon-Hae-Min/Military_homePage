@@ -35,3 +35,15 @@ def postdelete(request,pk):
     objects.delete()
     return redirect('/')
         
+    
+def SaveEveningCheckBox(request):
+    print(request.POST.getlist("tag[]"))
+    check_values=request.POST.getlist('tag')
+    ev=evening.objects.all()
+    print(check_values)
+    for i in ev:
+        i.find_check=False
+    for x in check_values:
+        evening.objects.get(evening.id==x).find_check=True
+        evening.save()
+    return redirect('/')
