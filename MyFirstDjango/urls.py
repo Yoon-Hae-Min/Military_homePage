@@ -15,15 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Hlist.views import main, postmemo, postdelete,  SaveEveningCheckBox,SaveDawnCheckBox, AllCheckBoxRelease
+from Hlist.views import main, postmemo, postdelete,  SaveEveningCheckBox,  SaveDawnCheckBox,  AllCheckBoxRelease
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',main),
-    path('post/',postmemo),
-    path('delete/<pk>',postdelete),
+    path('', main),
+    path('post/', postmemo),
+    path('delete/<pk>', postdelete),
     path('eveningCheckBox/', SaveEveningCheckBox),
-    path('dawnCheckBox/',SaveDawnCheckBox),
-    path('checkboxrelease/',AllCheckBoxRelease),
+    path('dawnCheckBox/', SaveDawnCheckBox),
+    path('checkboxrelease/', AllCheckBoxRelease),
 ]
 

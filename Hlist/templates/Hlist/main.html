@@ -43,21 +43,22 @@
               Id=id;
           }
           function postdelete(){
-              location.href="/delete/"+Id
+              Id=Id-10000;
+              location.href="delete/" + Id;
           }
       </script>
       
   </head>
     <!--
     이때까지한것: 사용자 로그인 아이콘등록, 마일리지박스, basic frame에서 위치조정 , 휴가관련 입력, 수정버튼 링크타기, 휴가관련 입력, 수정버튼 링크타기, 메모 등록 띄우기, 해야할일 틀찾고 입력, 메모 삭제기능 추가, 체크리스트 DB연동구현
+    ,추가버튼 레이아웃 조정,체크리스트 전부 체크해제 만들기, 마일리지 총합
 
-
-    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성, 위치편성),체크리스트 전부 체크해제 만들기
+    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성), 로그인기능 넣기, 마일리지 자동계산->일수->남은 시간, 할일 요일에맞게 자동 추가되는 기능구현
 
     메모장관련:  수정하기(모달로? 입력도?) & 입력페이지 HTML짜기
 
 
-    버그: 밑줄긋기 오류 메모추가 번호의 밑줄라인이 그어지질 않음=>원인: 메모의id랑 같아버려졌음-> 메모아이디를1000추가함 문제점: 임시방편일뿐 새로운 id태그 필요
+    밑줄긋기 오류 메모추가 번호의 밑줄라인이 그어지질 않음=>원인: 메모의id랑 같아버려졌음-> 메모아이디를1000추가함 문제점: 임시방편일뿐 새로운 id태그 필요
     
     쓸만한것: 부트스트랩 모달 기능
 
@@ -74,18 +75,21 @@
         <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#" title="Free Bootstrap 4 Admin Template">HaeMin</a><!-- 메인 메뉴-->
+        <a class="navbar-brand" href="/" title="Free Bootstrap 4 Admin Template">HaeMin</a><!-- 메인 메뉴-->
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="collapsingNavbar">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="admin/">AdminPage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="checkboxrelease/">Release All CheckBox</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -103,7 +107,7 @@
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
             <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
-                <li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">인수인계및 파일업로드 넣기</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Reports▾</a>
                     <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
@@ -132,21 +136,16 @@
                 <p class="lead d-none d-sm-block">2020년 10월31일 전역</p>
             </div>
             
-            <div style="display:inline">
-                <button type="button" class="btn btn-outline-primary" onclick="location.href='post/'">추가</button>
-            </div>
             <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <strong>Holy guacamole!</strong> It's free.. this is an example theme.<!--이건뭐지??-->
+                <strong>Holy guacamole!</strong> It's free.. this is an example theme.
             </div>
                                     
 
-            <div class="col-xs-12">
-                
-            
+        <div class="col-xs-12">
             <div class="row mb-3">
             {% for x in memo%}
                 {% if x.memoid == 1 %}
@@ -159,7 +158,6 @@
                                     <button class="btn btn-dark disabled btn-sm">수정</button>
                                     <button class="btn btn-dark disabled btn-sm" id={{x.memoid|add:'10000'}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid|add:'10000'}})">삭제</button>
                             </div>
-                            <!--안됨 어케 해결할지...해결방안-->
                         </div>
                     </div>
                 </div>
@@ -200,12 +198,15 @@
                                 <button class="btn btn-dark disabled btn-sm" id={{x.memoid|add:'10000'}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid|add:'10000'}})">삭제</button>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
-            </div>
+          
             {% endif %}
             {% endfor %}
+                <div class="col-xl-3 col-sm-6 py-2">
+                        <button type="button" class="btn btn-outline-primary h-100 w-100" style="font-size:25px" onclick="location.href='post/'">추가</button>
+                </div>
+            </div>
         </div>
             <hr>
             <!--/row-->
@@ -217,7 +218,7 @@
                         <div class="card-body">
                             <div class="card-title">
                                 <div class="row justify-content-between">
-                                    <div class="col-6">
+                                    <div class="col">
                                         <h3 class="title">마일리지</h3>
                                     </div>
                                 </div>                                
@@ -231,7 +232,13 @@
                                             {{i.month}}&nbsp:&nbsp&nbsp&nbsp&nbsp{{i.times}} 시간
                                         </h5>
                                     </li>
-                                    {% endfor %}<!--예시 마일리지 넣기-->
+                                    {% endfor %}
+                                    <br>
+                                    <li>
+                                        <h5>
+                                            총합&nbsp:&nbsp&nbsp&nbsp&nbsp{{mileagesum.times__sum}}  시간
+                                        </h5>
+                                    </li>
                                 </ul>              
                         </div>
                     </div>
@@ -325,31 +332,44 @@
                                                 {% endif %}
                                                     >{{ev.evening_name}}</td>
                                                 <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{ev.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
-                                                name="chk[]" value="{{ev.id}}"
+                                                name="chk[]" value={{ev.id}}
                                                 {% if ev.find_check %}
                                                 checked="checked"
                                                 {% endif %}></td>
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <td colspan=2><button class="btn btn-primary col" width="1000px">저장</button></td>
+                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
                                             </tr>
                                         </table>
                                     </form>
                                 </div>
-                                <!--table에 어떻게 넣을건지 border없이-->
                                 <div class="col">
                                     <div class="text-center">
                                         <h4>조간</h4>
                                     </div>
-                                    <table class="table table-bordered">
-                                        {% for x in dawn %}
-                                        <tr>
-                                            <td class="text-center" style="text-decoration:line-through">{{x.dawn_name}}</td>
-                                            <td class="text-center" ><input type="checkbox" style='zoom:2.0;'></td>
-                                        </tr>
-                                        {% endfor %}
-                                    </table>
+                                     <form action="dawnCheckBox/" method="POST">
+                                        <table class="table table-bordered">
+                                            {% csrf_token %}
+                                            {% for da in dawn %}
+                                            <tr>
+                                                <td class="text-center" id={{da.id|add:'200'}}
+                                                {% if da.find_check %}
+                                                    style="text-decoration:line-through"
+                                                {% endif %}
+                                                    >{{da.dawn_name}}</td>
+                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{da.id|add:'200'}},{{forloop.counter|add:'20'}})" id={{forloop.counter|add:'20'}}
+                                                name="chkD[]" value={{da.id}}
+                                                {% if da.find_check %}
+                                                checked="checked"
+                                                {% endif %}></td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
+                                            </tr>
+                                        </table>
+                                    </form>
                                  </div>
                             </div>
                             
@@ -704,20 +724,18 @@
         </div>
     </div>
 </div>
+      
 <!-- The delete Modal -->
 <div class="modal" id="delete_modal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">삭제하기</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <!-- Modal body -->
       <div class="modal-body">
             정말 메모를 삭제하시겠습니까?
       </div>
-      <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick=postdelete()>확인</button>
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
@@ -728,8 +746,6 @@
 
       
     <!--scripts loaded here-->
-    <!--삭제 script-->
-
       
       
       

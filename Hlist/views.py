@@ -4,13 +4,14 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def main(request):
     mil=mileage.objects.all()
+    milsum=mileage.objects.all().aggregate(Sum('times'))
     vac=vacation.objects.all()
     uvac=used_vacation.objects.all()
     memos=memo.objects.all()
     ev=evening.objects.all()
     da=dawn.objects.all()
     
-    return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da})
+    return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da, 'mileagesum':milsum})
 
 
 def postmemo(request):
@@ -48,4 +49,29 @@ def SaveEveningCheckBox(request):
             getId.find_check=True
             getId.save()
     
+    return redirect('/')
+
+def SaveDawnCheckBox(request):
+    if request.method == 'POST':
+        check_values=request.POST.getlist('chkD[]')
+        da=dawn.objects.all()
+        for i in da:
+            i.find_check=False
+            i.save()
+        for x in check_values:
+            getId=dawn.objects.get(id=x)
+            print(getId)
+            getId.find_check=True
+            getId.save()
+    return redirect('/')
+
+def AllCheckBoxRelease(request):
+    ev=evening.objects.all()
+    da=dawn.objects.all()
+    for ev in ev:
+        ev.find_check=False
+        ev.save()
+    for da in da:
+        da.find_check=False
+        da.save()
     return redirect('/')
