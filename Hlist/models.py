@@ -24,8 +24,8 @@ class memo(models.Model):
 
 class evening(models.Model):
     evening_name=models.CharField(max_length=100)
-    find_check=models.BooleanField(default=0)
+    find_check=models.BooleanField(default=False)
     
 class dawn(models.Model):
     dawn_name=models.CharField(max_length=100)
-    find_check=models.BooleanField(default=0)
+    find_check=models.BooleanField(default=False)
