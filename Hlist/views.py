@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import mileage,vacation,used_vacation,memo,evening,dawn
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Avg, Max, Min, Sum
 
 def main(request):
     mil=mileage.objects.all()
