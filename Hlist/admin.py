@@ -34,11 +34,13 @@ class memoadmin(admin.ModelAdmin):
 class eveningadmin(admin.ModelAdmin):
     list_display=(
         'evening_name',
+        'weekend',
         'find_check'
     )
 class dawnadmin(admin.ModelAdmin):
     list_display=(
         'dawn_name',
+        'weekend',
         'find_check'
     )
     

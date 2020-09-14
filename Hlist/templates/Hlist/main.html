@@ -58,7 +58,7 @@
     메모장관련:  수정하기(모달로? 입력도?) & 입력페이지 HTML짜기
 
 
-    밑줄긋기 오류 메모추가 번호의 밑줄라인이 그어지질 않음=>원인: 메모의id랑 같아버려졌음-> 메모아이디를1000추가함 문제점: 임시방편일뿐 새로운 id태그 필요
+    밑줄라인이 그어지질 않음=>원인: 메모의id랑 같아버려졌음-> 메모아이디를1000추가함 문제점: 임시방편일뿐 새로운 id태그 필요
     
     쓸만한것: 부트스트랩 모달 기능
 
@@ -208,7 +208,77 @@
                 </div>
             </div>
         </div>
-            <hr>
+    <hr>
+    <div class="row mb-3">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="text-center">
+                                Today to do
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                 <div class="col">
+                                    <div class="text-center">
+                                        <h4 >야간</h4>
+                                     </div>
+                                     <form action="eveningCheckBox/" method="POST">
+                                        <table class="table table-bordered">
+                                            {% csrf_token %}
+                                            {% for ev in evening %}
+                                            <tr>
+                                                <td class="text-center" id={{ev.id|add:'100'}}
+                                                {% if ev.find_check %}
+                                                    style="text-decoration:line-through"
+                                                {% endif %}
+                                                    >{{ev.evening_name}}</td>
+                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{ev.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
+                                                name="chk[]" value={{ev.id}}
+                                                {% if ev.find_check %}
+                                                checked="checked"
+                                                {% endif %}></td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <div class="text-center">
+                                        <h4>조간</h4>
+                                    </div>
+                                     <form action="dawnCheckBox/" method="POST">
+                                        <table class="table table-bordered">
+                                            {% csrf_token %}
+                                            {% for da in dawn %}
+                                            <tr>
+                                                <td class="text-center" id={{da.id|add:'200'}}
+                                                {% if da.find_check %}
+                                                    style="text-decoration:line-through"
+                                                {% endif %}
+                                                    >{{da.dawn_name}}</td>
+                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{da.id|add:'200'}},{{forloop.counter|add:'20'}})" id={{forloop.counter|add:'20'}}
+                                                name="chkD[]" value={{da.id}}
+                                                {% if da.find_check %}
+                                                checked="checked"
+                                                {% endif %}></td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                 </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                 </div>
+              </div>
             <!--/row-->
 <!--memo end-->
             <!--마일리지 박스 시작-->
@@ -307,76 +377,7 @@
 <!--vacation table end-->
             
             <hr>
-              <div class="row mb-3">
-                <div class="col">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h4 class="text-center">
-                                Today to do
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                 <div class="col">
-                                    <div class="text-center">
-                                        <h4 >야간</h4>
-                                     </div>
-                                     <form action="eveningCheckBox/" method="POST">
-                                        <table class="table table-bordered">
-                                            {% csrf_token %}
-                                            {% for ev in evening %}
-                                            <tr>
-                                                <td class="text-center" id={{ev.id|add:'100'}}
-                                                {% if ev.find_check %}
-                                                    style="text-decoration:line-through"
-                                                {% endif %}
-                                                    >{{ev.evening_name}}</td>
-                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{ev.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
-                                                name="chk[]" value={{ev.id}}
-                                                {% if ev.find_check %}
-                                                checked="checked"
-                                                {% endif %}></td>
-                                            </tr>
-                                            {% endfor %}
-                                            <tr>
-                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
-                                            </tr>
-                                        </table>
-                                    </form>
-                                </div>
-                                <div class="col">
-                                    <div class="text-center">
-                                        <h4>조간</h4>
-                                    </div>
-                                     <form action="dawnCheckBox/" method="POST">
-                                        <table class="table table-bordered">
-                                            {% csrf_token %}
-                                            {% for da in dawn %}
-                                            <tr>
-                                                <td class="text-center" id={{da.id|add:'200'}}
-                                                {% if da.find_check %}
-                                                    style="text-decoration:line-through"
-                                                {% endif %}
-                                                    >{{da.dawn_name}}</td>
-                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{da.id|add:'200'}},{{forloop.counter|add:'20'}})" id={{forloop.counter|add:'20'}}
-                                                name="chkD[]" value={{da.id}}
-                                                {% if da.find_check %}
-                                                checked="checked"
-                                                {% endif %}></td>
-                                            </tr>
-                                            {% endfor %}
-                                            <tr>
-                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
-                                            </tr>
-                                        </table>
-                                    </form>
-                                 </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                 </div>
-              </div>
+              
             <hr>
                    
             <div>

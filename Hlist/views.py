@@ -1,17 +1,20 @@
 from django.shortcuts import render,redirect
 from .models import mileage,vacation,used_vacation,memo,evening,dawn
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Avg, Max, Min, Sum
+from django.db.models import Avg, Max, Min, Sum, Q
+import datetime
+
 
 def main(request):
+    dt = datetime.datetime.now()
     mil=mileage.objects.all()
     milsum=mileage.objects.all().aggregate(Sum('times'))
     vac=vacation.objects.all()
     uvac=used_vacation.objects.all()
     memos=memo.objects.all()
-    ev=evening.objects.all()
-    da=dawn.objects.all()
-    
+    ev=evening.objects.all().filter(Q(weekend=7) | Q( weekend=dt.weekday()))
+    da=dawn.objects.all().filter(Q(weekend=7) | Q( weekend=dt.weekday()))
+     
     return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da, 'mileagesum':milsum})
 
 
