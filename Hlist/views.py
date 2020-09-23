@@ -1,8 +1,13 @@
 from django.shortcuts import render,redirect
 from .models import mileage,vacation,used_vacation,memo,evening,dawn
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Avg, Max, Min, Sum, Q
+#from django.db.models import Avg, Max, Min, Sum, Q
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout 
+from django.contrib import auth
+from .form import LoginForm
 import datetime
+from django.contrib.auth import login, authenticate
 
 
 def main(request):
@@ -78,4 +83,26 @@ def AllCheckBoxRelease(request):
     for da in da:
         da.find_check=False
         da.save()
+    return redirect('/')
+        
+def login(request):
+    if request.method == "POST":
+        username=request.POST["username"]
+        password=request.POST["password"]
+        print(username)
+        print(password)
+        # 폼 객체, 폼 클래스를 만들 때 괄호에 POST 데이터를 담아준다.
+        # POST 안에 있는 데이터가 form 변수에 들어간다.
+        u=authenticate(username=username,password=password)
+
+        if u is not None:
+            auth.login(request,u)
+            return redirect('/')
+    else:
+        form = LoginForm()
+        # 빈 클래스 변수를 만든다.
+    return render(request, 'Hlist/login.html')
+
+def logout(request):
+    auth.logout(request)
     return redirect('/')
