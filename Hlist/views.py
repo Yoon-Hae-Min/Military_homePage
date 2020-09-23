@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import mileage,vacation,used_vacation,memo,evening,dawn
 from django.core.exceptions import ObjectDoesNotExist
-#from django.db.models import Avg, Max, Min, Sum, Q
+from django.db.models import Avg, Max, Min, Sum, Q
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout 
 from django.contrib import auth
