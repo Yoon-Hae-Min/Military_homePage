@@ -17,9 +17,8 @@ def main(request):
     vac=vacation.objects.all()
     uvac=used_vacation.objects.all()
     memos=memo.objects.all()
-    ev=evening.objects.all().filter(Q(weekend=7) | Q( weekend=dt.weekday()))
-    da=dawn.objects.all().filter(Q(weekend=7) | Q( weekend=dt.weekday()))
-     
+    ev=evening.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()))
+    da=dawn.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()))
     return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da, 'mileagesum':milsum})
 
 
@@ -69,7 +68,6 @@ def SaveDawnCheckBox(request):
             i.save()
         for x in check_values:
             getId=dawn.objects.get(id=x)
-            print(getId)
             getId.find_check=True
             getId.save()
     return redirect('/')
@@ -89,8 +87,6 @@ def login(request):
     if request.method == "POST":
         username=request.POST["username"]
         password=request.POST["password"]
-        print(username)
-        print(password)
         # 폼 객체, 폼 클래스를 만들 때 괄호에 POST 데이터를 담아준다.
         # POST 안에 있는 데이터가 form 변수에 들어간다.
         u=authenticate(username=username,password=password)
