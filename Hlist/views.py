@@ -21,7 +21,7 @@ def main(request):
     da=dawn.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()))
     return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da, 'mileagesum':milsum})
 
-
+    
 def postmemo(request):
     if request.method == 'POST': # 폼이 전송되었을 때만 아래 코드를 실행
         if (request.POST['memoid'] != "==선택==" and request.POST['memotext'] != "") :

@@ -24,8 +24,8 @@ urlpatterns = [
     path('delete/<pk>', postdelete),
     path('eveningCheckBox/', SaveEveningCheckBox),
     path('dawnCheckBox/', SaveDawnCheckBox),
-    path('checkboxrelease/', AllCheckBoxRelease),
-    path('login/',login),
-    path('logout/',logout),
+    path('checkboxrelease/', AllCheckBoxRelease, name="AllCheckBoxRelease"),
+    path('login/',login,name="login"),
+    path('logout/',logout,name="logout"),
 ]
 
