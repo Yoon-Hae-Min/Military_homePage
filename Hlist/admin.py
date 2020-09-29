@@ -26,7 +26,6 @@ class used_vacationadmin(admin.ModelAdmin):
     )
 class memoadmin(admin.ModelAdmin):
     list_display=(
-        'memoid',
         'memotitle',
         'memotext'
     )

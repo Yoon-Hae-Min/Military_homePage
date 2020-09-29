@@ -16,45 +16,31 @@
               }
           }
       </script>
-    <script language="javascript">
-          var Id=0;
-          function saveId(id){
-              Id=id;
-          }
-          function postdelete(){
-              Id=Id-10000;
-              location.href="delete/" + Id;
-          }
+      <script>
+          function 
       </script>
-      
   </head>
     <!--
     이때까지한것: 사용자 로그인 아이콘등록, 마일리지박스, basic frame에서 위치조정 , 휴가관련 입력, 수정버튼 링크타기, 휴가관련 입력, 수정버튼 링크타기, 메모 등록 띄우기, 해야할일 틀찾고 입력, 메모 삭제기능 추가, 체크리스트 DB연동구현
-    ,추가버튼 레이아웃 조정,체크리스트 전부 체크해제 만들기, 마일리지 총합
+    ,추가버튼 레이아웃 조정,체크리스트 전부 체크해제 만들기, 마일리지 총합,로그인기능 넣기, 할일 요일에맞게 자동 추가되는 기능구현, 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성), 메모장 id관련 문제 해결
 
-    예정된것: 메모장 추가 해서 계속 추가 할수 있도록 해보기(나중에-색편성), 로그인기능 넣기, 마일리지 자동계산->일수->남은 시간, 할일 요일에맞게 자동 추가되는 기능구현
+    예정된것: , 마일리지 자동계산->일수->남은 시간, 홈페이지 디자인
 
-    메모장관련:  수정하기(모달로? 입력도?) & 입력페이지 HTML짜기
+    메모장관련: 수정하기(모달로? 입력도?) & 입력페이지 HTML짜기
 
-
-    밑줄라인이 그어지질 않음=>원인: 메모의id랑 같아버려졌음-> 메모아이디를1000추가함 문제점: 임시방편일뿐 새로운 id태그 필요
+    밑줄라인이 그어지질 않음=>원인: 메모의id랑 같아버려졌음->
     
     쓸만한것: 부트스트랩 모달 기능
 
 -->
     
     
-    
     {% block content %}
+    
   <body>
-
-    
-      <!--- north nav bar end---->
-   
 <div class="container-fluid bg-light" id="main">
-    
     <div class="row row-offcanvas row-offcanvas-left">
-        <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-dark pl-2" id="sidebar" role="navigation">
+            <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-dark pl-2" id="sidebar" role="navigation">
             <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
                 <li class="nav-item"><a class="nav-link" href="#">인수인계및 파일업로드 넣기</a></li>
                 <li class="nav-item">
@@ -73,50 +59,13 @@
                 <li class="nav-item"><a class="nav-link" href="#">Themes</a></li>
             </ul>
         </div>
-        <!--/col-->
-        <!--left nav var end-->
-        
         <!--memo start-->
         <div class="col main pt-5 mt-3">
-            <div>
-                <h4 class="text-center">MEMO</h4>
-            </div>
-                                    
-
+                <h4 style="display:inline">MEMO</h4>
+                
         <div class="col-xs-12">
             <div class="row mb-3">
             {% for x in memo%}
-                {% if x.memoid == 1 %}
-                <div class="col-xl-3 col-sm-6 py-2">
-                    <div class="card shadow bg-success text-white h-100">
-                        <div class="card-body bg-success">
-                            <h6 class="text-uppercase"> {{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
-                            {% if user.is_authenticated %}
-                            <div class="float-md-right">
-                                    <button class="btn btn-dark disabled btn-sm">수정</button>
-                                    <button class="btn btn-dark disabled btn-sm" id={{x.memoid|add:'10000'}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid|add:'10000'}})">삭제</button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% elif x.memoid == 2 %}
-                <div class="col-xl-3 col-sm-6 py-2">
-                    <div class="card shadow text-white bg-danger h-100">
-                        <div class="card-body bg-danger">
-                            <h6 class="text-uppercase">{{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
-                            {% if user.is_authenticated %}
-                            <div class="float-md-right">
-                                <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm" id={{x.memoid|add:'10000'}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid|add:'10000'}})">삭제</button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% elif x.memoid == 3 %}
                 <div class="col-xl-3 col-sm-6 py-2">
                     <div class="card shadow text-white bg-info h-100">
                         <div class="card-body bg-info">
@@ -125,29 +74,12 @@
                             {% if user.is_authenticated %}
                             <div class="float-md-right">
                                 <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm" id={{x.memoid|add:'10000'}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid|add:'10000'}})">삭제</button>
+                                <button class="btn btn-dark disabled btn-sm" data-toggle="modal" data-target="#delete_modal" data-title={{x.id}}>삭제</button>
                             </div>
                             {% endif %}
                         </div>
                     </div>
                 </div>
-                {% elif x.memoid == 4 %}
-                <div class="col-xl-3 col-sm-6 py-2">
-                    <div class="card shadow text-white bg-warning h-100">
-                        <div class="card-body">
-                            <h6 class="text-uppercase">{{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext}}</h1>
-                            {% if user.is_authenticated %}
-                            <div class="float-md-right">
-                                <button class="btn btn-dark disabled btn-sm">수정</button>
-                                <button class="btn btn-dark disabled btn-sm" id={{x.memoid|add:'10000'}} data-toggle="modal" data-target="#delete_modal" onclick="saveId({{x.memoid|add:'10000'}})">삭제</button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-          
-            {% endif %}
             {% endfor %}
                 {% if user.is_authenticated %}
                     <div class="col-xl-3 col-sm-6 py-2">
@@ -158,6 +90,8 @@
                 {% endif %}
             </div>
         </div>
+        <!--memo end-->    
+            
     <div class="row mb-3">
                 <div class="col">
                     <div class="card shadow mb-4">
@@ -190,9 +124,7 @@
                                             </tr>
                                             {% endfor %}
                                             {% if user.is_authenticated %}
-                                            <tr>
-                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
-                                            </tr>
+                                            <tr><td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td></tr>
                                             {% endif %}
                                         </table>
                                     </form>
@@ -211,6 +143,7 @@
                                                     style="text-decoration:line-through"
                                                 {% endif %}
                                                     >{{da.dawn_name}}</td>
+                                                
                                                 <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{da.id|add:'200'}},{{forloop.counter|add:'20'}})" id={{forloop.counter|add:'20'}}
                                                 name="chkD[]" value={{da.id}}
                                                 {% if da.find_check %}
@@ -238,25 +171,15 @@
             <div class="row my-4">
                 <div class="col-lg-3 col-md-4 status-now">
                     <div class="card shadow mb-4">
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h4>마일리지</h4>
-                            </div>
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><h4>마일리지</h4></div>
                             <div class="card-body">
                                    <!--row end-->
                                 <ul>
                                     {% for i in mileage %}
-                                    <li>
-                                        <h5>
-                                            {{i.month}}&nbsp:&nbsp&nbsp&nbsp&nbsp{{i.times}} 시간
-                                        </h5>
-                                    </li>
+                                    <li><h5>{{i.month}}&nbsp:&nbsp&nbsp&nbsp&nbsp{{i.times}} 시간</h5></li>
                                     {% endfor %}
                                     <br>
-                                    <li>
-                                        <h5>
-                                            총합&nbsp:&nbsp&nbsp&nbsp&nbsp{{mileagesum.times__sum}}  시간
-                                        </h5>
-                                    </li>
+                                    <li><h5>총합&nbsp:&nbsp&nbsp&nbsp&nbsp{{mileagesum.times__sum}}  시간</h5></li>
                                 </ul>           
                             </div>
                         </div>
@@ -266,10 +189,7 @@
                 <hr>
                 <div class="col-lg-9 col-md-8 ml-auto">
                         <div class="card-body card shadow mb-4">
-                            <h4 class="card-title">
-                                    남은 휴가
-                            </h4>
-                        
+                            <h4 class="card-title">남은 휴가</h4>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead class="thead-inverse">
@@ -377,7 +297,7 @@
             정말 메모를 삭제하시겠습니까?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick=postdelete()>확인</button>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" id="delete" onclick=DeleteMemo() value="">확인</button>
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
       </div>
     </div>
@@ -386,8 +306,23 @@
 
       
     <!--scripts loaded here-->
-      
-      
+    <script>
+        function DeleteMemo(){
+            deletememo=document.getElementById("delete").value
+            location.href="delete/" + deletememo
+        }
+    
+    </script>
+      <script>
+        $(document).ready(function() {
+        $('#delete_modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var deleteUrl = button.data('title');
+            var modal = $(this);
+            modal.find('.modal-footer button').val(deleteUrl);
+        })
+        });
+    </script>
       
       
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

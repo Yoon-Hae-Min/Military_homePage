@@ -24,13 +24,8 @@ def main(request):
     
 def postmemo(request):
     if request.method == 'POST': # 폼이 전송되었을 때만 아래 코드를 실행
-        if (request.POST['memoid'] != "==선택==" and request.POST['memotext'] != "") :
-            objects=memo.objects.filter(memoid=request.POST['memoid']).first() #필터로 검색 해서 없으면 None반환
-            if(objects!=None):
-                delete_object=memo.objects.get(memoid=request.POST['memoid'])
-                delete_object.delete()
+        if (request.POST['memotext'] != "") :
             new_article = memo.objects.create(
-                memoid=request.POST['memoid'],
                 memotitle=request.POST['memotitle'],
                 memotext=request.POST['memotext']
                 )
@@ -40,8 +35,11 @@ def postmemo(request):
     return render(request, 'Hlist/post.html')
 
 def postdelete(request,pk):
-    objects=memo.objects.get(memoid=pk)
-    objects.delete()
+    memo.objects.get(pk=pk).delete()
+    #for x in check_values:
+   #     obj=memo.objects.get(id=x)
+    #    obj.delete()
+    #    obj.save()
     return redirect('/')
         
     
