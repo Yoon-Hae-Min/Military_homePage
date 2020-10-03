@@ -34,13 +34,20 @@ def postmemo(request):
         # 새글 등록 끝
     return render(request, 'Hlist/post.html')
 
-def postdelete(request,pk):
+def memodelete(request,pk):
     memo.objects.get(pk=pk).delete()
-    #for x in check_values:
-   #     obj=memo.objects.get(id=x)
-    #    obj.delete()
-    #    obj.save()
     return redirect('/')
+
+def memoedit(request, pk):
+    memoCopy=memo.objects.get(pk=pk)
+    memotitle=memoCopy.memotitle
+    memotext=memoCopy.memotext
+    if request.method == "POST":
+        memoCopy.memotitle=request.POST['memotitle']
+        memoCopy.memotext=request.POST['memotext']
+        memoCopy.save()
+        return redirect('/')
+    return render(request, 'Hlist/edit.html',{'memotitle':memotitle, 'memotext':memotext})
         
     
 def SaveEveningCheckBox(request):
