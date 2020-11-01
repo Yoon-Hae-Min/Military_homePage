@@ -22,14 +22,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="static/css/styles.css" />
-
     
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-3">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-5">
         <div class="flex-row d-flex">
-            <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <a class="navbar-brand" href="/" title="Free Bootstrap 4 Admin Template">Military HomePage</a><!-- 메인 메뉴-->
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
@@ -48,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1"  aria-expanded="false" aria-controls="submenu1">파일 업로드▾</a>
                         <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1">
-                           <li class="nav-item"><a class="nav-link" href="">- 월별 마일리지 </a></li>
+                           <li class="nav-item"><a class="nav-link" href="{% url 'mileage'%}">- 월별 마일리지 </a></li>
                            <li class="nav-item"><a class="nav-link" href="">- 기타</a></li>
                         </ul>
                 </li>

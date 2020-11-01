@@ -2,9 +2,6 @@
 
 <html>
   <head>
-
-      
-      
       <!--자바 스크립트 함수-->
       <script language = "javascript">
           function checkboxchecked(num,ck){
@@ -16,9 +13,6 @@
               }
           }
       </script>
-      <script>
-          function 
-      </script>
   </head>
     
     {% block content %}
@@ -26,9 +20,8 @@
   <body>
 <div class="container-fluid bg-light" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-dark pl-2" id="sidebar" role="navigation">
-            <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
-            </ul>
+        <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-dark pl-2" id="sidebar" role="navigation">
+            <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3"></ul>
         </div>
         <!--memo start-->
         <div class="col main pt-5 mt-3">
@@ -143,14 +136,14 @@
                 <div class="col-lg-3 col-md-4 status-now">
                     <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><h4>마일리지</h4></div>
-                            <div class="card-body">
+                            <div class="card-body" style="margin-left:-13">
                                    <!--row end-->
                                 <ul>
                                     {% for i in mileage %}
-                                    <li><h5>{{i.month}}&nbsp:&nbsp&nbsp&nbsp&nbsp{{i.times}} 시간</h5></li>
+                                    <li><h5>{{i.month}}&nbsp:&nbsp&nbsp{{i.times}} 시간</h5></li>
                                     {% endfor %}
                                     <br>
-                                    <li><h5>총합&nbsp:&nbsp&nbsp&nbsp&nbsp{{mileagesum.times__sum}}  시간</h5></li>
+                                    <li><h5>총합&nbsp:&nbsp&nbsp{{mileagesum.times__sum}}  시간</h5></li>
                                 </ul>           
                             </div>
                         </div>

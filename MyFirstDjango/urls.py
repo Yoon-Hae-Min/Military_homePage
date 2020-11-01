@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
-from Hlist.views import main, postmemo, memodelete,  SaveEveningCheckBox,  SaveDawnCheckBox,  AllCheckBoxRelease, login, logout, memoedit
+from Hlist.views import *
+from navbar.views import *
+
+app_name = 'Mil' 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +33,9 @@ urlpatterns = [
     path('checkboxrelease/', AllCheckBoxRelease, name="AllCheckBoxRelease"),
     path('login/',login,name="login"),
     path('logout/',logout,name="logout"),
-]
+    path('mil/', MilUploadPage, name="mileage"),
+    path('mil/<pk>',MilUploadPage_view,name="view"),
+    path('milupload/',upload_file,name="milupload"),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
