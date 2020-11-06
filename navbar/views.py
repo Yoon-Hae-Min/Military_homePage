@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect,get_object_or_404
 from django.contrib.auth import logout 
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
@@ -27,20 +27,35 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
+def MilUploadPage_delete(request,pk):
+    UploadFileModel.objects.get(pk=pk).delete()
+    return redirect('/mil/')
+
 def MilUploadPage_view(request,pk):
     mv=UploadFileModel.objects.get(pk=pk)
     return render(request, 'navbar/milupload_view.html',{'milupload':mv})
 
 def MilUploadPage(request):
-    mup=UploadFileModel.objects.all()
+    mup=UploadFileModel.objects.all().order_by('-uploaddate')
     return render(request, 'navbar/milupload.html',{'milupload':mup})
+
+def edit_file(request,pk):#수정필요
+    post=get_object_or_404(UploadFileModel,pk=pk)
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES, instance=post)# instance=post 나머지 기존거로 채우기
+        post=form.save(commit=False)
+        post.save()
+        return redirect('/mil/')
+    else:
+        form = UploadFileForm(instance=post)
+    return render(request, "navbar/milupload_upload.html",{'form':form})
 
 def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
         if (form.is_valid() and request.POST['title'] != ""):
             form.save()
-            return redirect('/')
+            return redirect('/mil/')
     else:
         form = UploadFileForm()
-    return render(request, "navbar/milupload_create.html",{'form':form})
+    return render(request, "navbar/milupload_upload.html",{'form':form})

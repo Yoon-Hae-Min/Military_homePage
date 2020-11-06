@@ -37,5 +37,7 @@ urlpatterns = [
     path('mil/<pk>',MilUploadPage_view,name="view"),
     path('milupload/',upload_file,name="milupload"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('mil/<pk>/delete',MilUploadPage_delete,name="delete"),
+    path('mil/<pk>/edit',edit_file,name="edit"),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

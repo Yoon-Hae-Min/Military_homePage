@@ -9,7 +9,7 @@
         <form method="POST">
             {% csrf_token %}
             <div class="mb-3">
-                <input  class="form-control" type="text" placeholder="제목을 입력해주세요." name=memotitle value={{memotitle}}>
+                <input  class="form-control" type="text" name=memotitle value={{memotitle}}>
             </div>
             <div class="mb-3">
                 <textarea class="form-control" rows=6 placeholder="내용을 입력해주세요." name="memotext">{{memotext}}</textarea><br>

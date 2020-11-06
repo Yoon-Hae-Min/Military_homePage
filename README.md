@@ -5,11 +5,9 @@ django와 bootstrap을 활용해 만든 개인용 웹페이지
 ### 1. 주소
 <http://yoonhaemin.pythonanywhere.com/>
 
+
 ----------------------
 ### 2. 추가 수정 필요
--  nav바에있는 파일업로드 구현
-    - 업로드 및 view 구현 완료
-    - 삭제 및 수정 날짜기준 내림차순
 
 -  코드 시각화
 

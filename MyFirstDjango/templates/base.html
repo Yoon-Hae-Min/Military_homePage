@@ -35,17 +35,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href=""></a>
                 </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{%url 'AllCheckBoxRelease'%}">Release All CheckBox</a>
-                </li>
-                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1"  aria-expanded="false" aria-controls="submenu1">파일 업로드▾</a>
                         <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1">
                            <li class="nav-item"><a class="nav-link" href="{% url 'mileage'%}">- 월별 마일리지 </a></li>
                            <li class="nav-item"><a class="nav-link" href="">- 기타</a></li>
                         </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=""> P X 물건 </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

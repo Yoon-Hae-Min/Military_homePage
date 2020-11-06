@@ -1,19 +1,6 @@
 {% extends 'base.html' %}
 
 <html>
-  <head>
-      <!--자바 스크립트 함수-->
-      <script language = "javascript">
-          function checkboxchecked(num,ck){
-              if(document.getElementById(ck).checked){
-                  document.getElementById(num).style.textDecoration="line-through";
-              }
-              else{
-                  document.getElementById(num).style.textDecoration="none";
-              }
-          }
-      </script>
-  </head>
     
     {% block content %}
     
@@ -34,7 +21,7 @@
                     <div class="card shadow text-white bg-info h-100">
                         <div class="card-body bg-info">
                             <h6 class="text-uppercase">{{x.memotitle}}</h6>
-                            <h1 class="display-8">{{x.memotext|linebreaks}}</h1><!--개행문자 표시-->
+                            <h3>{{x.memotext|linebreaks}}</h3><!--개행문자 표시-->
                             {% if user.is_authenticated %}
                             <div class="float-md-right">
                                 <button class="btn btn-dark disabled btn-sm" onclick="location.href='edit/{{x.id}}'">수정</button>
@@ -60,9 +47,12 @@
                 <div class="col">
                     <div class="card shadow mb-4">
                         <div class="card-header">
-                            <h4 class="text-center">
+                            <h4 class="d-inline pl-5 my-auto">
                                 Today to do
                             </h4>
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-danger btn-md pull-right" href="{%url 'AllCheckBoxRelease'%}">X</a>
+                            {% endif %}
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -80,7 +70,7 @@
                                                     style="text-decoration:line-through"
                                                 {% endif %}
                                                     >{{ev.evening_name}}</td>
-                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{ev.id|add:'100'}},{{forloop.counter}})" id={{forloop.counter}}
+                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' id={{forloop.counter}}
                                                 name="chk[]" value={{ev.id}}
                                                 {% if ev.find_check %}
                                                 checked="checked"
@@ -108,7 +98,7 @@
                                                 {% endif %}
                                                     >{{da.dawn_name}}</td>
                                                 
-                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' onclick="checkboxchecked({{da.id|add:'200'}},{{forloop.counter|add:'20'}})" id={{forloop.counter|add:'20'}}
+                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' id={{forloop.counter|add:'20'}}
                                                 name="chkD[]" value={{da.id}}
                                                 {% if da.find_check %}
                                                 checked="checked"
@@ -135,7 +125,7 @@
             <div class="row my-4">
                 <div class="col-lg-3 col-md-4 status-now">
                     <div class="card shadow mb-4">
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><h4>마일리지</h4></div>
+                            <div class="card-header py-3 pl-4 d-flex flex-row align-items-center justify-content-between"><h4>마일리지</h4></div>
                             <div class="card-body" style="margin-left:-13">
                                    <!--row end-->
                                 <ul>
