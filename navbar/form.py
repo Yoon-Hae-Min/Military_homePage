@@ -1,5 +1,5 @@
 from django import forms
-from .models import UploadFileModel
+from .models import UploadFileModel, EtcUploadFileModel
 from django.contrib.auth.hashers import check_password
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -23,3 +23,16 @@ class UploadFileForm(forms.ModelForm):
             ),
             'Ubody': forms.CharField(widget=CKEditorUploadingWidget()),
         }
+    
+class EtcUploadFileForm(forms.ModelForm):
+    class Meta:
+        model = EtcUploadFileModel
+        fields = ['file','Ubody','title']
+
+        widgets = {
+            'title': forms.TextInput(
+                attrs={'class': 'form-control', 'style': 'width: 100%', 'placeholder': '제목을 입력하세요.'}
+            ),
+            'Ubody': forms.CharField(widget=CKEditorUploadingWidget()),
+        }
+    

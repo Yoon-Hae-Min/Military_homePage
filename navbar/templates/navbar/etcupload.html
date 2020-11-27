@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--style-->
+<style type="text/css">
+ .td:link { color: black; text-decoration: none;}
+ .td:visited { color: black; text-decoration: none;}
+ .td:hover { color: black; text-decoration: underline;}
+</style>
+<!--javaScript-->
+<script>
+    function Emphasize(tagid){
+        document.getElementById(tagid).style.background="#D8D8D8"
+        
+    }
+    function Cancel(tagid){
+        document.getElementById(tagid).style.background="white"
+    }
+</script>
+<!--main-->
+    <div class="container-fluid bg-light" id="main">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-dark pl-2" id="sidebar" role="navigation">
+                <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+                </ul>
+            </div>
+            <div class="col main">
+                <div class="card shadow align-middle pt-5 mt-4 mb-3">
+                    <div class="card-title">
+                        <h1 class="text-center">기타 업로드</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th class="text-center">Title</th>
+                                    <th class="text-center">Registration date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for etc in etcupload %}
+                                <tr id="{{etc.id}}" onmouseover="Emphasize({{etc.id}})" onmouseout="Cancel({{etc.id}})">
+                                    <td><a class="td" href="{%url 'Etcview' etc.id %}">{{forloop.counter}}</a></td>
+                                    <td><a class="td" href="{%url 'Etcview' etc.id %}">{{etc.title}}</a></td>
+                                    <td><a class="td" href="{%url 'Etcview' etc.id %}">{{etc.uploaddate}}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <a class="btn btn-dark" style="float:right"href="{% url 'Etcupload'%}">파일 올리기</a>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+{% endblock %}

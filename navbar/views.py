@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect,HttpResponseRedirect,get_object_or_
 from django.contrib.auth import logout 
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
-from .form import UploadFileForm, LoginForm
+from .form import UploadFileForm, LoginForm, EtcUploadFileForm
 from Hlist.form import *
-from .models import UploadFileModel
+from .models import UploadFileModel, EtcUploadFileModel
 import datetime
 # Create your views here.
 def login(request):
@@ -59,3 +59,36 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render(request, "navbar/milupload_upload.html",{'form':form})
+
+def EtcPage(request):
+    etcp=EtcUploadFileModel.objects.all().order_by('-uploaddate')
+    return render(request, 'navbar/etcupload.html',{'etcupload':etcp})
+
+def Etcupload_file(request):
+    if request.method == "POST":
+        form = EtcUploadFileForm(request.POST, request.FILES)
+        if (form.is_valid() and request.POST['title'] != ""):
+            form.save()
+            return redirect('/etc/')
+    else:
+        form = EtcUploadFileForm()
+    return render(request, "navbar/etcupload_upload.html",{'form':form})
+
+def Etcedit_file(request,pk):
+    post=get_object_or_404(EtcUploadFileModel,pk=pk)
+    if request.method == "POST":
+        form = EtcUploadFileForm(request.POST, request.FILES, instance=post)# instance=post 나머지 기존거로 채우기
+        post=form.save(commit=False)
+        post.save()
+        return redirect('/etc/')
+    else:
+        form = EtcUploadFileForm(instance=post)
+    return render(request, "navbar/etcupload_upload.html",{'form':form})
+
+def EtcUploadPage_delete(request,pk):
+    EtcUploadFileModel.objects.get(pk=pk).delete()
+    return redirect('/etc/')
+
+def EtcUploadPage_view(request,pk):
+    eu=EtcUploadFileModel.objects.get(pk=pk)
+    return render(request, 'navbar/etcupload_view.html',{'etcupload':eu})

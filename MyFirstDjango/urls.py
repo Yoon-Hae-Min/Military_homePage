@@ -20,7 +20,6 @@ from django.urls import path, include
 from Hlist.views import *
 from navbar.views import *
 
-app_name = 'Mil' 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,8 +35,13 @@ urlpatterns = [
     path('mil/', MilUploadPage, name="mileage"),
     path('mil/<pk>',MilUploadPage_view,name="view"),
     path('milupload/',upload_file,name="milupload"),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('mil/<pk>/delete',MilUploadPage_delete,name="delete"),
     path('mil/<pk>/edit',edit_file,name="edit"),
+    path('etc/',EtcPage,name="etc"),
+    path('etc/<pk>',EtcUploadPage_view, name="Etcview"),
+    path('etcupload/',Etcupload_file,name="Etcupload"),
+    path('etc/<pk>/delete',EtcUploadPage_delete,name="Etcdelete"),
+    path('etc/<pk>/edit',Etcedit_file,name="Etcedit"),
+    path('ckeditor/', include('ckeditor_uploader.urls'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
