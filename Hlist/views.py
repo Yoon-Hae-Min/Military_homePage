@@ -10,13 +10,17 @@ from .form import PostMemoClass
 
 def main(request):
     dt = datetime.datetime.now()
+    if(dt.weekday()<5):
+        today=8
+    else:
+        today=dt.weekday()
     mil=mileage.objects.all()
     milsum=mileage.objects.all().aggregate(Sum('times'))
     vac=vacation.objects.all()
     uvac=used_vacation.objects.all()
     memos=memo.objects.all()
-    ev=evening.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()))
-    da=dawn.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()))
+    ev=evening.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()) |Q(weekend=today))
+    da=dawn.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()) |Q(weekend=today))
     return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da, 'mileagesum':milsum})
 
     

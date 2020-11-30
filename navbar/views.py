@@ -36,7 +36,7 @@ def MilUploadPage_view(request,pk):
     return render(request, 'navbar/milupload_view.html',{'milupload':mv})
 
 def MilUploadPage(request):
-    mup=UploadFileModel.objects.all().order_by('-uploaddate')
+    mup=UploadFileModel.objects.all().order_by('-id')
     return render(request, 'navbar/milupload.html',{'milupload':mup})
 
 def edit_file(request,pk):#수정필요

@@ -15,6 +15,7 @@ class vacationadmin(admin.ModelAdmin):
         'vacation_name',
         'vacation_left_date',
         'vacation_date',
+        'vacation_type',
         'doucument_payment'
     )
 class used_vacationadmin(admin.ModelAdmin):

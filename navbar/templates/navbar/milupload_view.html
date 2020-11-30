@@ -29,7 +29,12 @@
                                 </tr>
                                 <tr>
                                     <td  style="width: 20%"><p class="font-weight-bold">파일 업로드</p></td>
-                                    <td><a href="{{milupload.file.url}}" download="{{milupload.file.name}}">{{milupload.file.name}}</a></td></tr>
+                                    {% if user.is_authenticated %}
+                                    <td><a href="{{milupload.file.url}}" download="{{milupload.file.name}}">{{milupload.file.name}}</a></td>
+                                    {% else %}
+                                    <td><a href="">로그인을 하셔야 다운로드 할 수 있습니다</a></td>
+                                    {% endif %}
+                                </tr>
                                 <tr>
                                     <td  style="width: 20%"><p  class="font-weight-bold">업로드 시간</p></td>
                                     <td>{{milupload.uploaddate}}</td>

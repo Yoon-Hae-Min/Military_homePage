@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class mileage(models.Model):
-    month=models.CharField(max_length=100)
+    month=models.IntegerField()
     times=models.FloatField(default=0)
     
 class vacation(models.Model):
@@ -11,6 +11,7 @@ class vacation(models.Model):
     vacation_left_date=models.IntegerField()
     vacation_date=models.IntegerField()
     doucument_payment=models.IntegerField(default=0)
+    vacation_type=models.IntegerField(default=1)
     
 class used_vacation(models.Model):
     vacation_name=models.CharField(max_length=50)
