@@ -1,8 +1,9 @@
 from django.db import models
-
+import datetime
 # Create your models here.
 
 class mileage(models.Model):
+    year=models.IntegerField(default=datetime.date.today().year)
     month=models.IntegerField()
     times=models.FloatField(default=0)
     

@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card shadow align-middle" style=" width:40rem; top:50%; left:50%; margin:-211 0 0 -319">
-    <div class="card-title" style="margin-top:30px; height:10%;">
-        <h3 class="text-center">MeMo</h3>
-        <hr>
-    </div>
-    <div class="card-body">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="mb-3">
-                <input  class="form-control" type="text" name=memotitle value={{memotitle}}>
+<div class="row h-100 justify-content-center">
+    <div class="col-lg-5 main pt-5">
+        <div class="card shadow align-middle pt-5 mt-4 mb-4 ml-4 mr-4">
+            <div class="card-title" style="margin-top:10px; height:10%;">
+                <h3 class="text-center">MeMo</h3>
+                <hr>
             </div>
-            <div class="mb-3">
-                <textarea class="form-control" rows=6 placeholder="내용을 입력해주세요." name="memotext">{{memotext}}</textarea><br>
-                <button class="btn btn-primary">수정</button>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input  class="form-control" type="text" name=memotitle value={{memotitle}}>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows=6 placeholder="내용을 입력해주세요." name="memotext">{{memotext}}</textarea><br>
+                        <button class="btn btn-primary">수정</button>
+                    </div>
+                </form>
             </div>
-
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}

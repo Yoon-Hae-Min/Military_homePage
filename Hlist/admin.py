@@ -6,6 +6,7 @@ from .models import mileage, vacation, used_vacation, memo, evening, dawn
 class mileageadmin(admin.ModelAdmin):
     list_display=(
         'id',
+        'year',
         'month',
         'times'
     )

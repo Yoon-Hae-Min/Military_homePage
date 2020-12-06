@@ -2,10 +2,12 @@ from django.shortcuts import render,redirect,HttpResponseRedirect,get_object_or_
 from django.contrib.auth import logout 
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
+from django.db.models import Avg, Max, Min, Sum, Q
 from .form import UploadFileForm, LoginForm, EtcUploadFileForm
 from Hlist.form import *
 from .models import UploadFileModel, EtcUploadFileModel
-import datetime
+from Hlist.models import *
+#import datetime
 # Create your views here.
 def login(request):
     if request.method == "POST":
@@ -48,20 +50,33 @@ def edit_file(request,pk):#수정필요
         return redirect('/mil/')
     else:
         form = UploadFileForm(instance=post)
-    return render(request, "navbar/milupload_upload.html",{'form':form})
+        mt=mileage.objects.last()
+    return render(request, "navbar/milupload_upload.html",{'form':form,'miltimes':mt})
 
 def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
+        obj=mileage.objects.filter(Q(year=request.POST["year"])&Q(month=request.POST["month"]))
+        if (obj):
+            obj=mileage.objects.get(Q(year=request.POST["year"])&Q(month=request.POST["month"]))
+            obj.times=request.POST["times"]
+            obj.save()
+        else:
+            new_article = mileage.objects.create(
+                year=request.POST['year'],
+                month=request.POST['month'],
+                times=request.POST['times']
+                )
         if (form.is_valid() and request.POST['title'] != ""):
             form.save()
             return redirect('/mil/')
     else:
         form = UploadFileForm()
-    return render(request, "navbar/milupload_upload.html",{'form':form})
+        mt=mileage.objects.last()
+    return render(request, "navbar/milupload_upload.html",{'form':form,'miltimes':mt})
 
 def EtcPage(request):
-    etcp=EtcUploadFileModel.objects.all().order_by('-uploaddate')
+    etcp=EtcUploadFileModel.objects.all().order_by('-id')
     return render(request, 'navbar/etcupload.html',{'etcupload':etcp})
 
 def Etcupload_file(request):
