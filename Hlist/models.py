@@ -23,12 +23,8 @@ class memo(models.Model):
     memotitle=models.CharField(max_length=100)
     memotext=models.TextField(max_length=1000)
 
-class evening(models.Model):
-    evening_name=models.CharField(max_length=100)
+class CheckBox(models.Model):
+    name=models.CharField(max_length=100)
     weekend=models.IntegerField(default=7)
     find_check=models.BooleanField(default=False)
-    
-class dawn(models.Model):
-    dawn_name=models.CharField(max_length=100)
-    weekend=models.IntegerField(default=7)
-    find_check=models.BooleanField(default=False)
+    checktype=models.IntegerField()

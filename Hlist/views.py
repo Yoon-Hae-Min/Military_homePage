@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import mileage,vacation,used_vacation,memo,evening,dawn
+from .models import mileage,vacation,used_vacation,memo,CheckBox
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Avg, Max, Min, Sum, Q
 from django.contrib.auth.forms import UserCreationForm
@@ -19,9 +19,8 @@ def main(request):
     vac=vacation.objects.all()
     uvac=used_vacation.objects.all()
     memos=memo.objects.all()
-    ev=evening.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()) |Q(weekend=today))
-    da=dawn.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()) |Q(weekend=today))
-    return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'evening':ev,'dawn':da, 'mileagesum':milsum})
+    ev=CheckBox.objects.filter(Q(weekend=7) | Q( weekend=dt.weekday()) |Q(weekend=today))
+    return render(request,'Hlist/main.html',{'mileage':mil, 'vacation':vac, 'used_vacation':uvac, 'memo':memos,'CheckBox':ev, 'mileagesum':milsum})
 
     
 def postmemo(request):
@@ -51,41 +50,23 @@ def memoedit(request, pk):
     return render(request, 'Hlist/edit.html',{'memotitle':memotitle, 'memotext':memotext})
         
     
-def SaveEveningCheckBox(request):
+def SaveCheckBox(request):
     if request.method == 'POST':
         check_values=request.POST.getlist('chk[]')
-        ev=evening.objects.all()
+        ev=CheckBox.objects.all()
         for i in ev:
             i.find_check=False
             i.save()
         for x in check_values:
-            getId=evening.objects.get(id=x)
-            getId.find_check=True
-            getId.save()
-    
-    return redirect('/')
-
-def SaveDawnCheckBox(request):
-    if request.method == 'POST':
-        check_values=request.POST.getlist('chkD[]')
-        da=dawn.objects.all()
-        for i in da:
-            i.find_check=False
-            i.save()
-        for x in check_values:
-            getId=dawn.objects.get(id=x)
+            getId=CheckBox.objects.get(id=x)
             getId.find_check=True
             getId.save()
     return redirect('/')
 
 def AllCheckBoxRelease(request):
-    ev=evening.objects.all()
-    da=dawn.objects.all()
+    ev=CheckBox.objects.all()
     for ev in ev:
         ev.find_check=False
         ev.save()
-    for da in da:
-        da.find_check=False
-        da.save()
     return redirect('/')
         

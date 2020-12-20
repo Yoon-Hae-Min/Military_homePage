@@ -54,70 +54,98 @@
                                 <a class="btn btn-danger btn-md pull-right" href="{%url 'AllCheckBoxRelease'%}">X</a>
                             {% endif %}
                         </div>
-                        <div class="card-body">
+                        <form action="CheckBox/" method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="card-body card shadow">
+                            <div class="row">
+                                 <div class="col-md-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <tr class="table-active">
+                                                    <th colspan=2 class="text-center"><h4>야간</h4></th>     
+                                                </tr>
+                                                {% for ch in CheckBox %}
+                                                {% if ch.checktype == 0 %}
+                                                <tr>
+                                                    <td class="text-center" id={{ch.id|add:'100'}}
+                                                    {% if ch.find_check %}
+                                                        style="text-decoration:line-through"
+                                                    {% endif %}
+                                                        >{{ch.name}}</td>
+                                                    <td class="text-center" ><input type="checkbox" style='zoom:2.0;' id={{forloop.counter}}
+                                                    name="chk[]" value={{ch.id}}
+                                                    {% if ch.find_check %}
+                                                    checked="checked"
+                                                    {% endif %}></td>
+                                                </tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </table>
+                                            </div>
+                                    </div>
+                                <div class="col-md-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <tr class="table-active">
+                                                    <td colspan=2 class="text-center"><h4>조간</h4></td>
+                                                </tr>
+                                                {% for ch in CheckBox %}
+                                                {% if ch.checktype == 1 %}
+                                                <tr>
+                                                    <td class="text-center" id={{ch.id|add:'200'}}
+                                                    {% if ch.find_check %}
+                                                        style="text-decoration:line-through"
+                                                    {% endif %}
+                                                        >{{ch.name}}</td>
+
+                                                    <td class="text-center" ><input type="checkbox" style='zoom:2.0;' id={{forloop.counter|add:'20'}}
+                                                    name="chk[]" value={{ch.id}}
+                                                    {% if ch.find_check %}
+                                                    checked="checked"
+                                                    {% endif %}></td>
+                                                </tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </table>
+                                         </div>
+                                 </div>
+                            </div>
                             <div class="row">
                                  <div class="col">
-                                    <div class="text-center">
-                                        <h4 >야간</h4>
-                                     </div>
-                                     <form action="eveningCheckBox/" method="POST">
-                                        <table class="table table-bordered">
-                                            {% csrf_token %}
-                                            {% for ev in evening %}
-                                            <tr>
-                                                <td class="text-center" id={{ev.id|add:'100'}}
-                                                {% if ev.find_check %}
-                                                    style="text-decoration:line-through"
+                                         <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <tr class="table-active">
+                                                    <td colspan=2 class="text-center"><h4>상시</h4></td>
+                                                </tr>
+                                                {% for ch in CheckBox %}
+                                                {% if ch.checktype == 2 %}
+                                                <tr>
+                                                    <td class="text-center" id={{ch.id|add:'300'}}
+                                                    {% if ch.find_check %}
+                                                        style="text-decoration:line-through"
+                                                    {% endif %}
+                                                        >{{ch.name}}</td>
+                                                    <td class="text-center" ><input type="checkbox" style='zoom:2.0;'
+                                                    name="chk[]" value={{ch.id}}
+                                                    {% if ch.find_check %}
+                                                    checked="checked"
+                                                    {% endif %}></td>
+                                                </tr>
                                                 {% endif %}
-                                                    >{{ev.evening_name}}</td>
-                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' id={{forloop.counter}}
-                                                name="chk[]" value={{ev.id}}
-                                                {% if ev.find_check %}
-                                                checked="checked"
-                                                {% endif %}></td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% if user.is_authenticated %}
-                                            <tr><td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td></tr>
-                                            {% endif %}
-                                        </table>
-                                    </form>
+                                                {% endfor %}
+                                            </table>
+                                                {% if user.is_authenticated %}
+                                                <button class="btn btn-primary disabled col" width="1000px">저장</button>
+                                                {% endif %}
+                                         </div>
                                 </div>
-                                <div class="col">
-                                    <div class="text-center">
-                                        <h4>조간</h4>
-                                    </div>
-                                     <form action="dawnCheckBox/" method="POST">
-                                        <table class="table table-bordered">
-                                            {% csrf_token %}
-                                            {% for da in dawn %}
-                                            <tr>
-                                                <td class="text-center" id={{da.id|add:'200'}}
-                                                {% if da.find_check %}
-                                                    style="text-decoration:line-through"
-                                                {% endif %}
-                                                    >{{da.dawn_name}}</td>
-                                                
-                                                <td class="text-center" ><input type="checkbox" style='zoom:2.0;' id={{forloop.counter|add:'20'}}
-                                                name="chkD[]" value={{da.id}}
-                                                {% if da.find_check %}
-                                                checked="checked"
-                                                {% endif %}></td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% if user.is_authenticated %}
-                                            <tr>
-                                                <td colspan=2><button class="btn btn-primary disabled col" width="1000px">저장</button></td>
-                                            </tr>
-                                            {% endif %}
-                                        </table>
-                                    </form>
-                                 </div>
                             </div>
                             
                         </div>
+                        </form>
                     </div>
-                 </div>
+                </div>
               </div>
             <!--/row-->
 <!--memo end-->
@@ -212,7 +240,7 @@
              <div class="col-xs-12">
                     <div class="card shadow mb-4">
                             <div class="card-header card shadow align-items-center justify-content-between"><h4>마일리지</h4></div>
-                            <div class="card-body mb-4">
+                            <div class="card-body card shadow mb-4">
                                    <!--row end-->
                                 <div class="row">
                                     <div class="col-md-3">

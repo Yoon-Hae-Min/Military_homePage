@@ -45,6 +45,17 @@ def edit_file(request,pk):#수정필요
     post=get_object_or_404(UploadFileModel,pk=pk)
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES, instance=post)# instance=post 나머지 기존거로 채우기
+        obj=mileage.objects.filter(Q(year=request.POST["year"])&Q(month=request.POST["month"]))
+        if (obj):
+            obj=mileage.objects.get(Q(year=request.POST["year"])&Q(month=request.POST["month"]))
+            obj.times=request.POST["times"]
+            obj.save()
+        else:
+            new_article = mileage.objects.create(
+                year=request.POST['year'],
+                month=request.POST['month'],
+                times=request.POST['times']
+                )
         post=form.save(commit=False)
         post.save()
         return redirect('/mil/')

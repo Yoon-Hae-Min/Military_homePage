@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import mileage, vacation, used_vacation, memo, evening, dawn
+from .models import mileage, vacation, used_vacation, memo, CheckBox
 # Register your models here.
 
 
@@ -32,23 +32,16 @@ class memoadmin(admin.ModelAdmin):
         'memotext'
     )
     
-class eveningadmin(admin.ModelAdmin):
+class CheckBoxadmin(admin.ModelAdmin):
     list_display=(
-        'evening_name',
+        'name',
         'weekend',
-        'find_check'
-    )
-class dawnadmin(admin.ModelAdmin):
-    list_display=(
-        'dawn_name',
-        'weekend',
-        'find_check'
-    )
-    
+        'find_check',
+        'checktype'
+    )    
     
 admin.site.register(mileage,mileageadmin)
 admin.site.register(vacation,vacationadmin)
 admin.site.register(used_vacation,used_vacationadmin)
 admin.site.register(memo,memoadmin)
-admin.site.register(evening,eveningadmin)
-admin.site.register(dawn,dawnadmin)
+admin.site.register(CheckBox,CheckBoxadmin)
