@@ -11,7 +11,7 @@
             <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3"></ul>
         </div>
         <!--memo start-->
-        <div class="col main pt-5 mt-3">
+            <div class="col main pt-5 mt-3">
                 <h4 style="display:inline">MEMO</h4>
                 
         <div class="col-xs-12">
@@ -241,7 +241,7 @@
                     <div class="card shadow mb-4">
                             <div class="card-header card shadow align-items-center justify-content-between"><h4>마일리지</h4></div>
                             <div class="card-body card shadow mb-4">
-                                   <!--row end-->
+                                  <!--row end-->
                                 <div class="row">
                                     <div class="col-md-3">
                                         <table class="table table-bordered">
@@ -268,9 +268,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
             </div>
-        
+    </div>
+    <!--footer-->
+    <div class="row">
+        <div class="col bg-dark">
+            <div class="col mt-3">
+                <p class="text-white pull-right" style="font-size:12px">
+                    COPYRIGHT ⓒ 2020 HaeMin ALL RIGHTS RESERVED.
+                </p>
+                <p>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+
+                  
             <!--row-->
 <!--vacation table end-->
 
@@ -336,7 +351,6 @@ var times=[] ;
         typedate+={{i.vacation_date}}
     {% endif %}
 {% endfor %}
-//이게 문제네
 {% for m in mileage %}
     milname.push({{m.month}})
     times.push({{m.times}})

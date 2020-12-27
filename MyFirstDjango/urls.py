@@ -42,5 +42,6 @@ urlpatterns = [
     path('etc/<pk>/delete',EtcUploadPage_delete,name="Etcdelete"),
     path('etc/<pk>/edit',Etcedit_file,name="Etcedit"),
     path('ckeditor/', include('ckeditor_uploader.urls'))
+   
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

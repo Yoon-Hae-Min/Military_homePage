@@ -9,11 +9,13 @@ django와 bootstrap을 활용해 만든 개인용 웹페이지
 
 #### 관리자
 
-today to do 
+today to do
+
 weekend
 - 0~6: 월~일 그날만
 - 7: 월~일 전부
 - 8: 평일만
+
 type
 - 0: 야간
 - 1: 조간
@@ -30,15 +32,6 @@ vacation
 ### 2. 추가 수정 필요
 
 -  코드 시각화
-
-- 추가 기능 찾기
-    - px 요일별 입고 품목 만들기
-    
-- today to do model 하나로 합치기
-
-- 야간 조간 상시 구별하는 integer model 만들어 구별하기 $!!!ingteger모델 변경에 따른 main.html template 작업 필요(다시)!!!!$
-
-- 저장버튼 하나로 합치기(그에따른 view변경)
 
 ### 3. 기능
 
