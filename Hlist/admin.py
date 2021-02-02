@@ -16,9 +16,13 @@ class vacationadmin(admin.ModelAdmin):
         'vacation_name',
         'vacation_left_date',
         'vacation_date',
+        'doucument_payment',
         'vacation_type',
-        'doucument_payment'
     )
+    fieldsets = [
+    (None,{'fields':['vacation_name','vacation_left_date','vacation_date','doucument_payment']}),
+    ('0:연가 1:포상 2:위로 3:마일리지', {'fields': ['vacation_type']}),
+    ]
 class used_vacationadmin(admin.ModelAdmin):
     list_display=(
         'id',
@@ -36,9 +40,16 @@ class CheckBoxadmin(admin.ModelAdmin):
     list_display=(
         'name',
         'weekend',
-        'find_check',
-        'checktype'
+        'checktype',
+        'find_check'        
     )    
+    list_filter=['weekend','checktype']
+    fieldsets = [
+    (None,{'fields':['name', 'find_check']}),
+    ('7:요일전부     8:평일만', {'fields': ['weekend']}),
+    ('0:야간     1:조간     2:상시', {'fields': ['checktype']}),
+    ]
+    
     
 admin.site.register(mileage,mileageadmin)
 admin.site.register(vacation,vacationadmin)
